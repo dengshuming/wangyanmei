@@ -97,35 +97,57 @@ const SectionHeader = ({
   </div>
 );
 
-const useAutoScrollOverflow = (activeKey: unknown, interval = 1500, step = 26) => {
+const useAutoScrollOverflow = (activeKey: unknown, pixelsPerSecond = 8) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (activeKey === null || activeKey === undefined) return;
     const target = ref.current;
     if (!target) return;
-    let scrollTimer: number | null = null;
+    let frameId: number | null = null;
+    let resetTimer: number | null = null;
+    let lastFrameTime: number | null = null;
+    let scrollPosition = 0;
+    let cancelled = false;
 
     target.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
 
-    const startTimer = window.setTimeout(() => {
-      if (target.scrollHeight <= target.clientHeight) return;
+    const tick = (timestamp: number) => {
+      if (cancelled) return;
 
-      scrollTimer = window.setInterval(() => {
-        const maxScroll = target.scrollHeight - target.clientHeight;
-        if (target.scrollTop >= maxScroll - 2) {
-          target.scrollTo({ top: 0, behavior: "smooth" });
-        } else {
-          target.scrollBy({ top: step, behavior: "smooth" });
-        }
-      }, interval);
+      const maxScroll = target.scrollHeight - target.clientHeight;
+      if (maxScroll <= 0) return;
+
+      if (lastFrameTime === null) lastFrameTime = timestamp;
+      const elapsed = timestamp - lastFrameTime;
+      lastFrameTime = timestamp;
+
+      if (target.scrollTop >= maxScroll - 1) {
+        resetTimer = window.setTimeout(() => {
+          scrollPosition = 0;
+          target.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+          lastFrameTime = null;
+          frameId = window.requestAnimationFrame(tick);
+        }, 1200);
+        return;
+      }
+
+      scrollPosition = Math.min(maxScroll, scrollPosition + (elapsed / 1000) * pixelsPerSecond);
+      target.scrollTop = scrollPosition;
+      frameId = window.requestAnimationFrame(tick);
+    };
+
+    const startTimer = window.setTimeout(() => {
+      frameId = window.requestAnimationFrame(tick);
     }, 650);
 
     return () => {
+      cancelled = true;
       window.clearTimeout(startTimer);
-      if (scrollTimer !== null) window.clearInterval(scrollTimer);
+      if (resetTimer !== null) window.clearTimeout(resetTimer);
+      if (frameId !== null) window.cancelAnimationFrame(frameId);
     };
-  }, [activeKey, interval, step]);
+  }, [activeKey, pixelsPerSecond]);
 
   return ref;
 };
@@ -418,7 +440,7 @@ const ExperienceSection = () => {
   const experienceAutoPreviewRef = useRef(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activeExperience, setActiveExperience] = useState<number | null>(null);
-  const mobileExperienceDetailRef = useAutoScrollOverflow(activeExperience, 1500, 26);
+  const mobileExperienceDetailRef = useAutoScrollOverflow(activeExperience, 9);
   const [isMobileExperienceScrolled, setIsMobileExperienceScrolled] = useState(false);
   const [isExperienceInView, setIsExperienceInView] = useState(false);
 

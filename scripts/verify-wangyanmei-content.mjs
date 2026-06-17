@@ -21,6 +21,7 @@ const requiredAppText = [
   'AI汇报工作流',
   'h-[50dvh] max-h-[50dvh]',
   'flex-1 min-h-0 overflow-y-auto overscroll-contain',
+  'window.requestAnimationFrame(tick)',
 ];
 
 const forbiddenAppText = [
@@ -34,6 +35,8 @@ const forbiddenAppText = [
   '2023.06 - 2025.XX',
   '2018.09 - 2020.10',
   '中港通国际现代服务业产业园',
+  'window.setInterval',
+  'target.scrollBy',
 ];
 
 const forbiddenFiles = [
