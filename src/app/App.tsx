@@ -334,7 +334,7 @@ const AboutSection = () => {
   return (
     <SectionWrapper id="about" className="bg-zinc-950 text-zinc-200">
       <div className="flex flex-col h-full w-full">
-        <SectionHeader subtitle="About Me" title="关于我" desc="财务主管方向 · 多主体账税管理 · 付款合同审核 · 月度汇报提效" rightElement={mobilePhoto} />
+        <SectionHeader subtitle="About Me" title="关于我" desc="个人概况简介" rightElement={mobilePhoto} />
 
         <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           <motion.div
@@ -430,7 +430,7 @@ const ExperienceSection = () => {
     {
       period: "2023.06 - 2025.XX",
       company: "中港通国际现代服务业产业园（深圳）有限公司",
-      role: "财务主管（财务统筹 / 多主体管理）",
+      role: "财务主管",
       tags: ["17家公司", "账税核算", "资金预算", "合同审核"],
       details: [
         "作为财务部核心会计人员，协同出纳完成日常收付款、费用审核、账务核算、税务申报、资金计划、预算跟进、合同付款审核及月度财务汇报。",
@@ -467,7 +467,7 @@ const ExperienceSection = () => {
     {
       period: "2018.09 - 2020.10",
       company: "赣州豆豆母婴有限公司",
-      role: "会计实习（内账方向）",
+      role: "内账会计",
       tags: ["内账核算", "8家门店", "库存盘点", "报表支持"],
       details: [
         "协助负责母婴零售批发场景下8家门店内账核算、营业款核对、费用审核、进销存数据汇总、库存盘点及经营报表输出。",
