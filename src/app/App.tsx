@@ -256,7 +256,7 @@ const HeroSection = () => (
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
             className="hidden md:flex text-lg md:text-2xl lg:text-3xl font-medium tracking-wide w-full justify-center"
           >
-            <span className="text-shimmer inline-block">财务主管 · 多主体账税统筹 · 合同与流程审核</span>
+            <span className="text-shimmer inline-block">财务主管 · 财务统筹 · 多主体管理</span>
           </motion.div>
 
           <motion.div
@@ -264,15 +264,15 @@ const HeroSection = () => (
             className="md:hidden flex flex-col items-center space-y-3 w-full mt-2"
           >
             <span className="inline-block text-base font-medium tracking-wide text-zinc-300">• 财务主管</span>
-            <span className="inline-block text-base font-medium tracking-wide text-zinc-300">• 多主体账税统筹</span>
-            <span className="inline-block text-base font-medium tracking-wide text-zinc-300">• 合同与流程审核</span>
+            <span className="inline-block text-base font-medium tracking-wide text-zinc-300">• 财务统筹</span>
+            <span className="inline-block text-base font-medium tracking-wide text-zinc-300">• 多主体管理</span>
           </motion.div>
 
           <motion.div
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
             className="hidden md:block text-xs md:text-sm lg:text-lg font-mono tracking-widest uppercase w-full text-zinc-400 mt-4"
           >
-            17家公司财务闭环 / 预算与资金跟进 / AI工作流提效
+            17家公司财务闭环 / 合同付款审核 / AI汇报工作流
           </motion.div>
 
           <motion.div
@@ -280,8 +280,8 @@ const HeroSection = () => (
             className="md:hidden flex flex-col items-center space-y-3 mt-6 text-xs font-mono tracking-widest uppercase text-zinc-400"
           >
             <span className="px-4 py-1.5 bg-zinc-900 rounded-full border border-zinc-800">17家公司财务闭环</span>
-            <span className="px-4 py-1.5 bg-zinc-900 rounded-full border border-zinc-800">预算与资金跟进</span>
-            <span className="px-4 py-1.5 bg-zinc-900 rounded-full border border-zinc-800">AI工作流提效</span>
+            <span className="px-4 py-1.5 bg-zinc-900 rounded-full border border-zinc-800">合同付款审核</span>
+            <span className="px-4 py-1.5 bg-zinc-900 rounded-full border border-zinc-800">AI汇报工作流</span>
           </motion.div>
         </motion.div>
       </div>
@@ -321,8 +321,8 @@ const AboutSection = () => {
       icon: ReceiptText,
     },
     {
-      label: "核心方向",
-      value: "流程+AI",
+      label: "工具能力",
+      value: "金蝶/Excel",
       icon: Workflow,
     },
   ];
@@ -370,9 +370,9 @@ const AboutSection = () => {
                 className="space-y-4 h-full overflow-y-auto hide-scrollbar pb-10 md:pb-0"
               >
                 {[
-                  "具备小型财务部统筹经验，能在两人财务部协同场景下围绕会计核算、出纳收付款、税务申报、费用预算、合同付款审核及档案管理建立分工复核和节点跟进机制。",
-                  "熟悉小规模、一般纳税人、合伙企业等不同主体申报口径，覆盖个税、增值税及附加、企业所得税、工商年报、税务年报，并能跟进经营异常、地址异常、税务变更等合规事项。",
-                  "能结合 Excel、WPS 与轻量 AI 工作流优化合同审核和月度财务汇报，将合同要点、收支明细和往来款数据整理为检查清单、结构化提纲和思维导图框架，输出经人工复核后用于内部汇报。",
+                  "小型财务部统筹能力：具备两人财务部协同场景下的财务统筹经验，能围绕会计核算、出纳收付款、税务申报、费用预算、合同付款审核及档案管理建立分工复核和节点跟进机制。",
+                  "税务合规与风险处理能力：熟悉小规模、一般纳税人、合伙企业等不同主体申报口径，覆盖个税、增值税及附加、企业所得税、工商年报、税务年报，并能跟进经营异常、地址异常、税务变更等合规事项。",
+                  "工具与汇报提效能力：熟悉金蝶 KIS、金蝶系统、用友 ERP，熟练使用 Excel / WPS 及 SUM、SUMIF、SUBTOTAL、VLOOKUP、XLOOKUP 等函数，能结合轻量 AI 工作流优化合同审核和月度财务汇报。",
                 ].map((text, i) => (
                   <motion.p
                     key={text}
@@ -424,16 +424,19 @@ const ExperienceSection = () => {
 
   const experiences = [
     {
-      period: "2023.06 - 2025.XX",
-      company: "中港通国际现代服务业产业园（深圳）有限公司",
+      period: "2023.06 - 2026.06",
+      company: "均富联合上市服务（深圳）有限公司",
       role: "财务主管",
-      tags: ["17家公司", "账税核算", "资金预算", "合同审核"],
+      tags: ["17家公司", "财务统筹", "合同付款审核", "AI汇报工作流"],
       details: [
-        "作为财务部核心会计人员，协同出纳完成日常收付款、费用审核、账务核算、税务申报、资金计划、预算跟进、合同付款审核及月度财务汇报。",
+        "负责产业园多主体财务统筹工作，作为财务部核心会计人员，协同出纳完成日常收付款、费用审核、账务核算、税务申报、资金计划、预算跟进、合同付款审核及月度财务汇报。",
         "统筹两人财务部日常事项，明确会计核算、出纳付款、银行流水、扣款跟进、资料归档及付款复核边界，建立月度财务节点表和事项跟进台账。",
         "负责17家公司费用审核、工资核算、社保公积金扣款跟进、金蝶凭证录入及财务报表编制，并完成个税、经营所得、增值税及附加、企业所得税、工商年报、税务年报等申报事项。",
-        "参与财务付款流程与业务合同审核流程优化，梳理付款申请、审批材料、费用归集、预算匹配、合同金额、付款条件、发票税点、押金及违约条款等审核要点。",
-        "基于 AI 工作流搭建轻量合同审核辅助流程，将合同关键条款整理为标准检查清单；每月将收入、支出、往来款汇总表整理为 Markdown 结构化文档与思维导图框架，用于内部汇报。",
+        "每日核对各公司收支明细并汇报资金情况，结合紧急付款协助规划资金；每月对接各部门费用数据，编制下月预算表，同步登记借款、押金、备用金及项目数据。",
+        "参与财务付款流程与业务合同审核流程优化，梳理付款申请、审批材料、费用归集、预算匹配、出纳付款执行、合同金额、付款条件、发票税点、押金及违约条款等审核要点。",
+        "基于 AI 工作流搭建轻量合同审核辅助流程，将合同关键条款整理为标准检查清单，用于付款前要点核查与风险提示；审核结论结合合同原件、付款申请单及业务审批记录复核确认。",
+        "通过 AI汇报工作流，将每月收入、支出、往来款汇总表按层级归类、合并与汇总金额，生成 Markdown 结构化文档与思维导图框架，并设置各层级金额合计校验提示。",
+        "整理入账原始凭证，装订凭证、科目余额表、总账、明细账、纳税申报表等资料；跟进经营异常、地址异常问题，并完成第五次全国经济普查中15家公司信息及财务数据填报。",
       ],
     },
     {
@@ -446,6 +449,7 @@ const ExperienceSection = () => {
         "审核日常费用报销单、付款申请单及业务合同，关注金额、付款时间、付款方式、毛利返利、发票税点、特殊押金及违约金条款，降低业务结算风险。",
         "运用金蝶系统完成3个小规模公司、1个一般纳税人公司凭证录入与财务报表出具，完成个税、社保、增值税、企业所得税、工商年报、税务年报及统计网数据报送。",
         "核对客户及供应商往来账目并发送对账单，整理原始单据、装订凭证并归档会计账簿及其他财务资料。",
+        "独立完成3个小规模公司、1个一般纳税人公司账务处理、财务报表出具及纳税申报，配合完成费用审核、合同审核、往来对账和财务流程调整。",
       ],
     },
     {
@@ -458,10 +462,11 @@ const ExperienceSection = () => {
         "每月独立完成40多家公司原始单据整理、凭证录入与财务报表编制，按月度节点推进客户账务闭环。",
         "按时完成个税、社保、增值税、企业所得税、工商年报、税务年报等申报事项，确保税务数据准确性与及时性。",
         "及时向客户反馈税务不合规现象及处理建议，协助纠正不规范行为，同步处理社保医保、税务变更、税务异常与发票开具等事项。",
+        "每月完成40多家公司原始单据整理、凭证录入、财务报表编制和纳税申报，并针对税务不合规事项向客户反馈处理建议，降低客户税务异常风险。",
       ],
     },
     {
-      period: "2018.09 - 2020.10",
+      period: "2019.09 - 2020.10",
       company: "赣州豆豆母婴有限公司",
       role: "内账会计",
       tags: ["内账核算", "8家门店", "库存盘点", "报表支持"],
@@ -470,6 +475,7 @@ const ExperienceSection = () => {
         "每日核对门店营业款收入，跟进门店缴款与资金到账情况，保障门店资金回笼及时、账款记录清晰。",
         "汇总进销存数据，参与门店库存盘点与差异核对，为库存管理、成本核算和费用分摊提供基础数据。",
         "完成门店收入、费用、成本、返利等数据入账与报表编制，向股东说明报表数据来源并跟进签字确认。",
+        "协助完成8家门店营业款核对、费用审核、进销存数据汇总、库存盘点及经营报表输出，支撑门店经营数据核对与股东报表确认。",
       ],
     },
   ];
