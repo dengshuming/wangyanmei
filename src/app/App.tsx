@@ -112,6 +112,15 @@ const useAutoScrollOverflow = (activeKey: unknown, pixelsPerSecond = 8) => {
 
     target.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
 
+    const stopAutoScroll = () => {
+      cancelled = true;
+      if (resetTimer !== null) window.clearTimeout(resetTimer);
+      if (frameId !== null) window.cancelAnimationFrame(frameId);
+    };
+
+    target.addEventListener("touchstart", stopAutoScroll, { passive: true });
+    target.addEventListener("wheel", stopAutoScroll, { passive: true });
+
     const tick = (timestamp: number) => {
       if (cancelled) return;
 
@@ -143,6 +152,8 @@ const useAutoScrollOverflow = (activeKey: unknown, pixelsPerSecond = 8) => {
 
     return () => {
       cancelled = true;
+      target.removeEventListener("touchstart", stopAutoScroll);
+      target.removeEventListener("wheel", stopAutoScroll);
       window.clearTimeout(startTimer);
       if (resetTimer !== null) window.clearTimeout(resetTimer);
       if (frameId !== null) window.cancelAnimationFrame(frameId);
@@ -442,7 +453,7 @@ const ExperienceSection = () => {
   const mobileExperienceTouchStartRef = useRef<number | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activeExperience, setActiveExperience] = useState<number | null>(null);
-  const mobileExperienceDetailRef = useAutoScrollOverflow(activeExperience, 16);
+  const mobileExperienceDetailRef = useAutoScrollOverflow(activeExperience, 24);
   const [isMobileExperienceScrolled, setIsMobileExperienceScrolled] = useState(false);
   const [isExperienceInView, setIsExperienceInView] = useState(false);
 
