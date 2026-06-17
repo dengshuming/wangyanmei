@@ -2,18 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import {
   ArrowUpRight,
-  BarChart3,
   BriefcaseBusiness,
   Calculator,
   ChevronDown,
   FileText,
-  FolderCheck,
   Globe,
   Mail,
   Phone,
   ReceiptText,
-  ShieldCheck,
-  Sparkles,
   Workflow,
   X,
 } from "lucide-react";
@@ -94,7 +90,7 @@ const SectionHeader = ({
       )}
     </div>
     {desc && (
-      <p className="text-zinc-400 text-sm md:text-base lg:text-lg font-light leading-relaxed text-left md:text-center w-full md:max-w-5xl">
+      <p className="text-zinc-400 text-sm md:text-base lg:text-lg font-light leading-relaxed text-left md:text-center w-full md:whitespace-nowrap md:truncate">
         {desc}
       </p>
     )}
@@ -186,7 +182,7 @@ const Navbar = () => {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-      className="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 z-50 bg-zinc-900/80 backdrop-blur-xl border border-zinc-700/50 rounded-full px-4 md:px-6 h-14 md:h-auto md:py-2 flex items-center justify-between sm:justify-center gap-1 sm:gap-0 shadow-2xl w-[92%] sm:w-auto max-w-[380px]"
+      className="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 z-50 bg-zinc-900/80 backdrop-blur-xl border border-zinc-700/50 rounded-full px-4 md:px-6 h-14 md:h-auto md:py-2 flex items-center justify-between sm:justify-center gap-1 sm:gap-0 shadow-2xl w-[92%] sm:w-auto max-w-[420px]"
     >
       <a
         href="#hero"
