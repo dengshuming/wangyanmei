@@ -280,7 +280,7 @@ const HeroSection = () => (
         >
           <motion.div
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-            className="text-2xl md:text-4xl font-semibold tracking-[0.35em] text-zinc-100 pl-[0.35em]"
+            className="hidden md:block text-2xl md:text-4xl font-semibold tracking-[0.35em] text-zinc-100 pl-[0.35em]"
           >
             王艳梅
           </motion.div>
@@ -585,7 +585,7 @@ const ExperienceSection = () => {
     const isNearBottom = remainingScroll <= 48;
     const isLastCardVisible = lastCardRect ? target.scrollTop > 32 && lastCardRect.top < targetRect.bottom - 24 : false;
 
-    if (deltaY < -28 && mobileExperienceReadyAtTouchStartRef.current && (isNearBottom || isLastCardVisible)) {
+    if (deltaY < -10 && mobileExperienceReadyAtTouchStartRef.current && (isNearBottom || isLastCardVisible)) {
       document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
       mobileExperienceReadyForNextRef.current = false;
       mobileExperienceReadyAtTouchStartRef.current = false;
@@ -661,7 +661,7 @@ const ExperienceSection = () => {
     <SectionWrapper id="experience" className="bg-zinc-950 text-zinc-200">
       <div
         onTouchStart={handleMobileExperienceTouchStart}
-        onTouchMove={handleMobileExperienceTouchMove}
+        onTouchMoveCapture={handleMobileExperienceTouchMove}
         onTouchEnd={handleMobileExperienceTouchEnd}
         className="flex flex-col h-full w-full"
       >

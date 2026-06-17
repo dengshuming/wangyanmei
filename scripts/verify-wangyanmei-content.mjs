@@ -41,11 +41,13 @@ const requiredAppText = [
   'mobileExperienceReadyForNextRef.current = true',
   'mobileExperienceReadyAtTouchStartRef',
   'handleMobileExperienceTouchMove',
+  'onTouchMoveCapture={handleMobileExperienceTouchMove}',
   'jumpToContactIfReady',
-  'deltaY < -28',
+  'deltaY < -10',
   'deltaY < -42',
   'bottom-[-96px]',
   'pb-40',
+  'hidden md:block text-2xl md:text-4xl',
 ];
 
 const forbiddenAppText = [
