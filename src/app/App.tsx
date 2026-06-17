@@ -436,6 +436,7 @@ const AboutSection = () => {
 
 const ExperienceSection = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const mobileExperienceListRef = useRef<HTMLDivElement>(null);
   const dragStartRef = useRef<{ x: number; scrollLeft: number } | null>(null);
   const experienceAutoPreviewRef = useRef(false);
   const mobileExperienceTouchStartRef = useRef<number | null>(null);
@@ -555,13 +556,19 @@ const ExperienceSection = () => {
   const handleMobileExperienceTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
     const startY = mobileExperienceTouchStartRef.current;
     mobileExperienceTouchStartRef.current = null;
-    if (startY === null) return;
+    if (startY === null || activeExperience !== null || window.innerWidth >= 768) return;
 
-    const target = e.currentTarget;
+    const target = mobileExperienceListRef.current;
+    if (!target) return;
+
     const deltaY = e.changedTouches[0].clientY - startY;
-    const isAtBottom = target.scrollTop + target.clientHeight >= target.scrollHeight - 8;
+    const remainingScroll = target.scrollHeight - target.clientHeight - target.scrollTop;
+    const targetRect = target.getBoundingClientRect();
+    const lastCardRect = target.querySelector('[data-mobile-experience-card="last"]')?.getBoundingClientRect();
+    const isNearBottom = remainingScroll <= 48;
+    const isLastCardVisible = lastCardRect ? target.scrollTop > 32 && lastCardRect.top < targetRect.bottom - 24 : false;
 
-    if (deltaY < -50 && isAtBottom) {
+    if (deltaY < -42 && (isNearBottom || isLastCardVisible)) {
       document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
     }
   };
@@ -600,7 +607,11 @@ const ExperienceSection = () => {
 
   return (
     <SectionWrapper id="experience" className="bg-zinc-950 text-zinc-200">
-      <div className="flex flex-col h-full w-full">
+      <div
+        onTouchStart={handleMobileExperienceTouchStart}
+        onTouchEnd={handleMobileExperienceTouchEnd}
+        className="flex flex-col h-full w-full"
+      >
         <SectionHeader
           subtitle="Experience"
           title="工作经历"
@@ -608,9 +619,8 @@ const ExperienceSection = () => {
         />
 
         <div
+          ref={mobileExperienceListRef}
           onScroll={handleMobileExperienceScroll}
-          onTouchStart={handleMobileExperienceTouchStart}
-          onTouchEnd={handleMobileExperienceTouchEnd}
           className={`md:hidden flex-1 min-h-0 w-full relative mb-1 overflow-y-auto hide-scrollbar ${
             isMobileExperienceScrolled
               ? "[mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_78%,transparent_100%)] [WebkitMaskImage:linear-gradient(to_bottom,transparent_0%,black_10%,black_78%,transparent_100%)]"
@@ -624,7 +634,7 @@ const ExperienceSection = () => {
           />
           <div className="flex flex-col gap-3 pl-8 pb-24">
             {experiences.map((exp, i) => (
-              <div key={exp.company} className="relative">
+              <div key={exp.company} data-mobile-experience-card={i === experiences.length - 1 ? "last" : undefined} className="relative">
                 <span className="absolute -left-[27px] top-7 h-4 w-4 rounded-full bg-zinc-950 ring-2 ring-white shadow-[0_0_14px_rgba(255,255,255,0.55)] z-10">
                   <span className="absolute inset-1 rounded-full bg-white" />
                 </span>

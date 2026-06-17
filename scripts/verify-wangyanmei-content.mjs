@@ -29,7 +29,12 @@ const requiredAppText = [
   'max-w-[92%]',
   'handleMobileExperienceTouchEnd',
   'document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })',
-  'onTouchEnd={handleMobileExperienceTouchEnd}',
+  'mobileExperienceListRef',
+  'remainingScroll <= 48',
+  'data-mobile-experience-card',
+  'isLastCardVisible',
+  'target.scrollTop > 32',
+  'deltaY < -42',
 ];
 
 const forbiddenAppText = [
