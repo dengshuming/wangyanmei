@@ -4,13 +4,13 @@ import {
   ArrowUpRight,
   BriefcaseBusiness,
   Calculator,
+  CalendarCheck,
   ChevronDown,
   FileText,
   Globe,
   Mail,
   Phone,
   ReceiptText,
-  Workflow,
   X,
 } from "lucide-react";
 import profilePhoto from "../imports/wangyanmei-profile.png";
@@ -343,9 +343,9 @@ const AboutSection = () => {
       icon: ReceiptText,
     },
     {
-      label: "工具能力",
-      value: "金蝶/Excel",
-      icon: Workflow,
+      label: "财务经验",
+      value: "6年+",
+      icon: CalendarCheck,
     },
   ];
 
@@ -440,7 +440,7 @@ const ExperienceSection = () => {
   const experienceAutoPreviewRef = useRef(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activeExperience, setActiveExperience] = useState<number | null>(null);
-  const mobileExperienceDetailRef = useAutoScrollOverflow(activeExperience, 9);
+  const mobileExperienceDetailRef = useAutoScrollOverflow(activeExperience, 16);
   const [isMobileExperienceScrolled, setIsMobileExperienceScrolled] = useState(false);
   const [isExperienceInView, setIsExperienceInView] = useState(false);
 
@@ -662,7 +662,7 @@ const ExperienceSection = () => {
                   i === currentIndex ? "cursor-default" : "cursor-pointer hover:bg-zinc-800/80"
                 }`}
               >
-                <div className="md:w-[35%] lg:w-[30%] flex flex-col justify-between shrink-0 relative z-10 mb-4 md:mb-0">
+                <div className="md:w-[35%] lg:w-[30%] flex flex-col justify-between shrink-0 relative z-10 mb-4 md:mb-0 md:pr-6 lg:pr-8">
                   <div>
                     <span className="inline-block px-4 py-1.5 bg-zinc-950 border border-zinc-800 rounded-full text-zinc-400 text-sm font-mono mb-4 lg:mb-8">
                       {exp.period}
@@ -672,7 +672,7 @@ const ExperienceSection = () => {
                     </h3>
                     <div className="text-zinc-400 font-medium text-base md:text-lg lg:text-2xl">{exp.company}</div>
                   </div>
-                  <div className="hidden md:flex flex-wrap gap-2 mt-6">
+                  <div className="hidden md:flex flex-wrap gap-x-2 gap-y-2 mt-6 max-w-[92%]">
                     {exp.tags.map((tag) => (
                       <span key={tag} className="px-3 py-1.5 border border-zinc-700 text-zinc-300 rounded-xl text-xs bg-zinc-950/70 whitespace-nowrap">
                         {tag}
