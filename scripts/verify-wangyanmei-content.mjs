@@ -27,6 +27,9 @@ const requiredAppText = [
   'useAutoScrollOverflow(activeExperience, 16)',
   'md:pr-6 lg:pr-8',
   'max-w-[92%]',
+  'handleMobileExperienceTouchEnd',
+  'document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })',
+  'onTouchEnd={handleMobileExperienceTouchEnd}',
 ];
 
 const forbiddenAppText = [

@@ -438,6 +438,7 @@ const ExperienceSection = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const dragStartRef = useRef<{ x: number; scrollLeft: number } | null>(null);
   const experienceAutoPreviewRef = useRef(false);
+  const mobileExperienceTouchStartRef = useRef<number | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activeExperience, setActiveExperience] = useState<number | null>(null);
   const mobileExperienceDetailRef = useAutoScrollOverflow(activeExperience, 16);
@@ -547,6 +548,24 @@ const ExperienceSection = () => {
     setIsMobileExperienceScrolled((current) => (current === scrolled ? current : scrolled));
   };
 
+  const handleMobileExperienceTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    mobileExperienceTouchStartRef.current = e.touches[0]?.clientY ?? null;
+  };
+
+  const handleMobileExperienceTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    const startY = mobileExperienceTouchStartRef.current;
+    mobileExperienceTouchStartRef.current = null;
+    if (startY === null) return;
+
+    const target = e.currentTarget;
+    const deltaY = e.changedTouches[0].clientY - startY;
+    const isAtBottom = target.scrollTop + target.clientHeight >= target.scrollHeight - 8;
+
+    if (deltaY < -50 && isAtBottom) {
+      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const scrollTo = (index: number) => {
     if (!scrollRef.current) return;
     const target = scrollRef.current;
@@ -590,6 +609,8 @@ const ExperienceSection = () => {
 
         <div
           onScroll={handleMobileExperienceScroll}
+          onTouchStart={handleMobileExperienceTouchStart}
+          onTouchEnd={handleMobileExperienceTouchEnd}
           className={`md:hidden flex-1 min-h-0 w-full relative mb-1 overflow-y-auto hide-scrollbar ${
             isMobileExperienceScrolled
               ? "[mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_78%,transparent_100%)] [WebkitMaskImage:linear-gradient(to_bottom,transparent_0%,black_10%,black_78%,transparent_100%)]"
