@@ -1,5 +1,5 @@
-import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
+import { join, relative } from 'node:path';
 
 const root = process.cwd();
 const app = readFileSync(join(root, 'src', 'app', 'App.tsx'), 'utf8');
@@ -27,6 +27,74 @@ const forbiddenAppText = [
   '153-0790-1581',
 ];
 
+const forbiddenFiles = [
+  'mmexport1679447948336.jpg',
+  'src/imports/image-7.png',
+  'src/imports/image-8.png',
+  'src/imports/profile-photo-data.ts',
+  'src/imports/profile-photo.jpg',
+];
+
+const forbiddenRepoText = [
+  'DENGSHUMING',
+  'DSM.',
+  '邓述明',
+  'hi@dengshuming.com',
+  '153-0790-1581',
+  'AI训练师',
+  '数据组长',
+  '深圳益邦',
+  '小红书',
+  'Agent轨迹',
+];
+
+const ignoredDirs = new Set(['.git', 'dist', 'node_modules']);
+const ignoredFiles = new Set([
+  'scripts/verify-wangyanmei-content.mjs',
+  'preview-desktop.png',
+  'preview-mobile.png',
+]);
+
+const textExtensions = new Set([
+  '.css',
+  '.html',
+  '.js',
+  '.json',
+  '.md',
+  '.mjs',
+  '.ts',
+  '.tsx',
+  '.txt',
+  '.yml',
+]);
+
+const extensionOf = (path) => {
+  const lastDot = path.lastIndexOf('.');
+  return lastDot === -1 ? '' : path.slice(lastDot);
+};
+
+const collectTextFiles = (dir) => {
+  const files = [];
+
+  for (const entry of readdirSync(dir)) {
+    if (ignoredDirs.has(entry)) continue;
+
+    const absolute = join(dir, entry);
+    const repoPath = relative(root, absolute);
+    const stats = statSync(absolute);
+
+    if (stats.isDirectory()) {
+      files.push(...collectTextFiles(absolute));
+      continue;
+    }
+
+    if (ignoredFiles.has(repoPath)) continue;
+    if (textExtensions.has(extensionOf(entry))) files.push(absolute);
+  }
+
+  return files;
+};
+
 for (const text of requiredAppText) {
   if (!app.includes(text)) {
     throw new Error(`src/app/App.tsx is missing required text: ${text}`);
@@ -36,6 +104,23 @@ for (const text of requiredAppText) {
 for (const text of forbiddenAppText) {
   if (app.includes(text)) {
     throw new Error(`src/app/App.tsx still contains old or removed text: ${text}`);
+  }
+}
+
+for (const file of forbiddenFiles) {
+  if (existsSync(join(root, file))) {
+    throw new Error(`Repository still contains old copied asset: ${file}`);
+  }
+}
+
+for (const file of collectTextFiles(root)) {
+  const content = readFileSync(file, 'utf8');
+  const repoPath = relative(root, file);
+
+  for (const text of forbiddenRepoText) {
+    if (content.includes(text)) {
+      throw new Error(`${repoPath} still contains old site text: ${text}`);
+    }
   }
 }
 
