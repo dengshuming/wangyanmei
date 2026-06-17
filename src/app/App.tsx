@@ -452,6 +452,7 @@ const ExperienceSection = () => {
   const experienceAutoPreviewRef = useRef(false);
   const mobileExperienceTouchStartRef = useRef<number | null>(null);
   const mobileExperienceReadyForNextRef = useRef(false);
+  const mobileExperienceReadyAtTouchStartRef = useRef(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activeExperience, setActiveExperience] = useState<number | null>(null);
   const mobileExperienceDetailRef = useAutoScrollOverflow(activeExperience, 24);
@@ -567,6 +568,36 @@ const ExperienceSection = () => {
 
   const handleMobileExperienceTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     mobileExperienceTouchStartRef.current = e.touches[0]?.clientY ?? null;
+    mobileExperienceReadyAtTouchStartRef.current = mobileExperienceReadyForNextRef.current;
+  };
+
+  const jumpToContactIfReady = (currentY: number) => {
+    const startY = mobileExperienceTouchStartRef.current;
+    if (startY === null || activeExperience !== null || window.innerWidth >= 768) return false;
+
+    const target = mobileExperienceListRef.current;
+    if (!target) return false;
+
+    const deltaY = currentY - startY;
+    const remainingScroll = target.scrollHeight - target.clientHeight - target.scrollTop;
+    const targetRect = target.getBoundingClientRect();
+    const lastCardRect = target.querySelector('[data-mobile-experience-card="last"]')?.getBoundingClientRect();
+    const isNearBottom = remainingScroll <= 48;
+    const isLastCardVisible = lastCardRect ? target.scrollTop > 32 && lastCardRect.top < targetRect.bottom - 24 : false;
+
+    if (deltaY < -28 && mobileExperienceReadyAtTouchStartRef.current && (isNearBottom || isLastCardVisible)) {
+      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+      mobileExperienceReadyForNextRef.current = false;
+      mobileExperienceReadyAtTouchStartRef.current = false;
+      mobileExperienceTouchStartRef.current = null;
+      return true;
+    }
+
+    return false;
+  };
+
+  const handleMobileExperienceTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    jumpToContactIfReady(e.touches[0]?.clientY ?? 0);
   };
 
   const handleMobileExperienceTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
@@ -585,11 +616,12 @@ const ExperienceSection = () => {
     const isLastCardVisible = lastCardRect ? target.scrollTop > 32 && lastCardRect.top < targetRect.bottom - 24 : false;
 
     if (deltaY < -42 && (isNearBottom || isLastCardVisible)) {
-      if (!mobileExperienceReadyForNextRef.current) {
+      if (!mobileExperienceReadyAtTouchStartRef.current) {
         mobileExperienceReadyForNextRef.current = true;
         return;
       }
       document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+      mobileExperienceReadyForNextRef.current = false;
     }
   };
 
@@ -629,6 +661,7 @@ const ExperienceSection = () => {
     <SectionWrapper id="experience" className="bg-zinc-950 text-zinc-200">
       <div
         onTouchStart={handleMobileExperienceTouchStart}
+        onTouchMove={handleMobileExperienceTouchMove}
         onTouchEnd={handleMobileExperienceTouchEnd}
         className="flex flex-col h-full w-full"
       >

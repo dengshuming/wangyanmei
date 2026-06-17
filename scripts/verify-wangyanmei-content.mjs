@@ -39,6 +39,10 @@ const requiredAppText = [
   'target.scrollTop > 32',
   'mobileExperienceReadyForNextRef',
   'mobileExperienceReadyForNextRef.current = true',
+  'mobileExperienceReadyAtTouchStartRef',
+  'handleMobileExperienceTouchMove',
+  'jumpToContactIfReady',
+  'deltaY < -28',
   'deltaY < -42',
 ];
 
