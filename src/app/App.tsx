@@ -697,9 +697,9 @@ const ExperienceSection = () => {
             exit={{ y: "100%" }}
             transition={{ duration: 0.28, ease: "easeOut" }}
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-h-[calc(100dvh-2rem-env(safe-area-inset-bottom))] rounded-[2rem] bg-zinc-900 ring-1 ring-inset ring-zinc-800 shadow-2xl p-6 pb-8 overflow-hidden"
+            className="w-full h-[50dvh] max-h-[50dvh] rounded-[2rem] bg-zinc-900 ring-1 ring-inset ring-zinc-800 shadow-2xl p-6 pb-8 overflow-hidden flex flex-col"
           >
-            <div className="flex items-start justify-between gap-4 mb-5">
+            <div className="flex items-start justify-between gap-4 mb-5 shrink-0">
               <div>
                 <span className="inline-flex px-3 py-1 rounded-full bg-zinc-950 border border-zinc-800 text-zinc-400 text-xs font-mono mb-3">
                   {experiences[activeExperience].period}
@@ -715,7 +715,7 @@ const ExperienceSection = () => {
               ref={mobileExperienceDetailRef}
               onWheel={(e) => e.stopPropagation()}
               onTouchMove={(e) => e.stopPropagation()}
-              className="max-h-[calc(100dvh-170px-env(safe-area-inset-bottom))] overflow-y-auto overscroll-contain hide-scrollbar pr-1 [mask-image:linear-gradient(to_bottom,black_94%,transparent_100%)] [WebkitMaskImage:linear-gradient(to_bottom,black_94%,transparent_100%)]"
+              className="flex-1 min-h-0 overflow-y-auto overscroll-contain hide-scrollbar pr-1 [mask-image:linear-gradient(to_bottom,black_94%,transparent_100%)] [WebkitMaskImage:linear-gradient(to_bottom,black_94%,transparent_100%)]"
             >
               <ul className="space-y-4 text-zinc-300">
                 {experiences[activeExperience].details.map((detail) => (

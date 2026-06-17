@@ -19,6 +19,8 @@ const requiredAppText = [
   '赣州豆豆母婴有限公司',
   '小型财务部统筹能力',
   'AI汇报工作流',
+  'h-[50dvh] max-h-[50dvh]',
+  'flex-1 min-h-0 overflow-y-auto overscroll-contain',
 ];
 
 const forbiddenAppText = [
