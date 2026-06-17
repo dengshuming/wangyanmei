@@ -451,6 +451,7 @@ const ExperienceSection = () => {
   const dragStartRef = useRef<{ x: number; scrollLeft: number } | null>(null);
   const experienceAutoPreviewRef = useRef(false);
   const mobileExperienceTouchStartRef = useRef<number | null>(null);
+  const mobileExperienceReadyForNextRef = useRef(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activeExperience, setActiveExperience] = useState<number | null>(null);
   const mobileExperienceDetailRef = useAutoScrollOverflow(activeExperience, 24);
@@ -557,6 +558,10 @@ const ExperienceSection = () => {
 
   const handleMobileExperienceScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const scrolled = e.currentTarget.scrollTop > 6;
+    const remainingScroll = e.currentTarget.scrollHeight - e.currentTarget.clientHeight - e.currentTarget.scrollTop;
+    if (e.currentTarget.scrollTop < 24 || remainingScroll > 180) {
+      mobileExperienceReadyForNextRef.current = false;
+    }
     setIsMobileExperienceScrolled((current) => (current === scrolled ? current : scrolled));
   };
 
@@ -580,6 +585,10 @@ const ExperienceSection = () => {
     const isLastCardVisible = lastCardRect ? target.scrollTop > 32 && lastCardRect.top < targetRect.bottom - 24 : false;
 
     if (deltaY < -42 && (isNearBottom || isLastCardVisible)) {
+      if (!mobileExperienceReadyForNextRef.current) {
+        mobileExperienceReadyForNextRef.current = true;
+        return;
+      }
       document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
     }
   };
@@ -761,7 +770,7 @@ const ExperienceSection = () => {
             exit={{ y: "100%" }}
             transition={{ duration: 0.28, ease: "easeOut" }}
             onClick={(e) => e.stopPropagation()}
-            className="w-full h-[50dvh] max-h-[50dvh] rounded-[2rem] bg-zinc-900 ring-1 ring-inset ring-zinc-800 shadow-2xl p-6 pb-8 overflow-hidden flex flex-col"
+            className="w-full h-[60dvh] max-h-[60dvh] rounded-[2rem] bg-zinc-900 ring-1 ring-inset ring-zinc-800 shadow-2xl p-6 pb-8 overflow-hidden flex flex-col"
           >
             <div className="flex items-start justify-between gap-4 mb-5 shrink-0">
               <div>

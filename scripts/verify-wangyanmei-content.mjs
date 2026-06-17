@@ -21,7 +21,7 @@ const requiredAppText = [
   'AI汇报工作流',
   '财务经验',
   '6年+',
-  'h-[50dvh] max-h-[50dvh]',
+  'h-[60dvh] max-h-[60dvh]',
   'flex-1 min-h-0 overflow-y-auto overscroll-contain',
   'window.requestAnimationFrame(tick)',
   'useAutoScrollOverflow(activeExperience, 24)',
@@ -37,6 +37,8 @@ const requiredAppText = [
   'data-mobile-experience-card',
   'isLastCardVisible',
   'target.scrollTop > 32',
+  'mobileExperienceReadyForNextRef',
+  'mobileExperienceReadyForNextRef.current = true',
   'deltaY < -42',
 ];
 
