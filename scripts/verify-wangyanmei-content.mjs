@@ -45,8 +45,8 @@ const requiredAppText = [
   'jumpToContactIfReady',
   'deltaY < -10',
   'deltaY < -42',
-  'bottom-[-96px]',
-  'pb-40',
+  'absolute left-[11px] top-0 bottom-0 w-1',
+  'flex flex-col gap-3 pl-8 pb-24',
 ];
 
 const forbiddenAppText = [

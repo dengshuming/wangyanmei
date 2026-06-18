@@ -674,11 +674,11 @@ const ExperienceSection = () => {
           }`}
         >
           <div
-            className={`absolute left-[11px] top-0 bottom-[-96px] w-1 rounded-full shadow-[0_0_14px_rgba(255,255,255,0.28)] ${
+            className={`absolute left-[11px] top-0 bottom-0 w-1 rounded-full shadow-[0_0_14px_rgba(255,255,255,0.28)] ${
               isMobileExperienceScrolled ? "bg-gradient-to-b from-transparent via-white/70 to-transparent" : "bg-gradient-to-b from-white via-white/70 to-transparent"
             }`}
           />
-          <div className="flex flex-col gap-3 pl-8 pb-40">
+          <div className="flex flex-col gap-3 pl-8 pb-24">
             {experiences.map((exp, i) => (
               <div key={exp.company} data-mobile-experience-card={i === experiences.length - 1 ? "last" : undefined} className="relative">
                 <span className="absolute -left-[27px] top-7 h-4 w-4 rounded-full bg-zinc-950 ring-2 ring-white shadow-[0_0_14px_rgba(255,255,255,0.55)] z-10">
