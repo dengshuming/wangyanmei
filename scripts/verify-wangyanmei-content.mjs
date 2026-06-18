@@ -50,6 +50,8 @@ const requiredAppText = [
   'desktopDetailHasMore',
   'updateDesktopDetailFade',
   'black_82%,transparent_100%',
+  'md:hidden flex-1 min-h-0 w-full relative mb-1 overflow-y-auto hide-scrollbar',
+  'bg-gradient-to-b from-white via-white/70 to-transparent',
 ];
 
 const forbiddenAppText = [
@@ -65,6 +67,7 @@ const forbiddenAppText = [
   '中港通国际现代服务业产业园',
   '产业园多主体',
   '>\n            王艳梅\n',
+  'black_78%,transparent_100%',
   'window.setInterval',
   'target.scrollBy',
 ];

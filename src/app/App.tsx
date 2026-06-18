@@ -675,11 +675,7 @@ const ExperienceSection = () => {
         <div
           ref={mobileExperienceListRef}
           onScroll={handleMobileExperienceScroll}
-          className={`md:hidden flex-1 min-h-0 w-full relative mb-1 overflow-y-auto hide-scrollbar ${
-            isMobileExperienceScrolled
-              ? "[mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_78%,transparent_100%)] [WebkitMaskImage:linear-gradient(to_bottom,transparent_0%,black_10%,black_78%,transparent_100%)]"
-              : "[mask-image:linear-gradient(to_bottom,black_0%,black_78%,transparent_100%)] [WebkitMaskImage:linear-gradient(to_bottom,black_0%,black_78%,transparent_100%)]"
-          }`}
+          className="md:hidden flex-1 min-h-0 w-full relative mb-1 overflow-y-auto hide-scrollbar"
         >
           <div
             className={`absolute left-[11px] top-0 bottom-0 w-1 rounded-full shadow-[0_0_14px_rgba(255,255,255,0.28)] ${
