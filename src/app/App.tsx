@@ -850,7 +850,7 @@ const ContactSection = () => {
   const [contactFeedback, setContactFeedback] = useState<{ label: string; message: string } | null>(null);
   const contacts = [
     { label: "邮箱", value: "2541955489@qq.com", icon: Mail, action: "copy", copyValue: "2541955489@qq.com" },
-    { label: "电话", value: "151-8043-4859", icon: Phone, action: "phone", copyValue: "151-8043-4859" },
+    { label: "电话", value: "151-8043-4859", icon: Phone, action: "copy", copyValue: "151-8043-4859" },
     { label: "方向", value: "财务主管 / 全盘会计", icon: Globe, action: "copy", copyValue: "财务主管 / 全盘会计" },
     { label: "简历", value: "下载完整PDF", icon: FileText, action: "download", href: "./resume.pdf" },
   ];
@@ -877,16 +877,9 @@ const ContactSection = () => {
   };
 
   const handleContactClick = async (contact: typeof contacts[number]) => {
-    if ((contact.action === "copy" || contact.action === "phone") && contact.copyValue) {
+    if (contact.action === "copy" && contact.copyValue) {
       await copyText(contact.copyValue);
       showFeedback(contact.label, "已复制");
-
-      const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
-      if (contact.action === "phone" && isMobile) {
-        window.setTimeout(() => {
-          window.location.href = `tel:${contact.copyValue.replace(/\D/g, "")}`;
-        }, 450);
-      }
       return;
     }
 

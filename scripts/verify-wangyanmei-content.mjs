@@ -52,6 +52,7 @@ const requiredAppText = [
   'black_82%,transparent_100%',
   'md:hidden flex-1 min-h-0 w-full relative mb-1 overflow-y-auto hide-scrollbar',
   'bg-gradient-to-b from-white via-white/70 to-transparent',
+  '{ label: "电话", value: "151-8043-4859", icon: Phone, action: "copy"',
 ];
 
 const forbiddenAppText = [
@@ -70,6 +71,7 @@ const forbiddenAppText = [
   'black_78%,transparent_100%',
   'window.setInterval',
   'target.scrollBy',
+  'window.location.href = `tel:',
 ];
 
 const forbiddenFiles = [
@@ -171,6 +173,10 @@ for (const file of collectTextFiles(root)) {
 
 if (!index.includes('王艳梅 - 财务主管')) {
   throw new Error('index.html title was not updated for Wang Yanmei.');
+}
+
+if (!index.includes('href="./favicon.svg"')) {
+  throw new Error('index.html is missing the project favicon.');
 }
 
 if (index.includes('邓述明') || index.includes('AI训练师')) {
