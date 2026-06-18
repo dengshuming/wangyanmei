@@ -280,13 +280,6 @@ const HeroSection = () => (
         >
           <motion.div
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-            className="hidden md:block text-2xl md:text-4xl font-semibold tracking-[0.35em] text-zinc-100 pl-[0.35em]"
-          >
-            王艳梅
-          </motion.div>
-
-          <motion.div
-            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
             className="hidden md:flex text-lg md:text-2xl lg:text-3xl font-medium tracking-wide w-full justify-center"
           >
             <span className="text-shimmer inline-block">财务主管 · 财务统筹 · 多主体管理</span>
@@ -466,7 +459,7 @@ const ExperienceSection = () => {
       role: "财务主管",
       tags: ["17家公司", "财务统筹", "合同付款审核", "AI汇报工作流"],
       details: [
-        "负责产业园多主体财务统筹工作，作为财务部核心会计人员，协同出纳完成日常收付款、费用审核、账务核算、税务申报、资金计划、预算跟进、合同付款审核及月度财务汇报。",
+        "负责多主体财务统筹工作，作为财务部核心会计人员，协同出纳完成日常收付款、费用审核、账务核算、税务申报、资金计划、预算跟进、合同付款审核及月度财务汇报。",
         "统筹两人财务部日常事项，明确会计核算、出纳付款、银行流水、扣款跟进、资料归档及付款复核边界，建立月度财务节点表和事项跟进台账。",
         "负责17家公司费用审核、工资核算、社保公积金扣款跟进、金蝶凭证录入及财务报表编制，并完成个税、经营所得、增值税及附加、企业所得税、工商年报、税务年报等申报事项。",
         "每日核对各公司收支明细并汇报资金情况，结合紧急付款协助规划资金；每月对接各部门费用数据，编制下月预算表，同步登记借款、押金、备用金及项目数据。",

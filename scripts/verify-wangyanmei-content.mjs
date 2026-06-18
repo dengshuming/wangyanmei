@@ -47,7 +47,6 @@ const requiredAppText = [
   'deltaY < -42',
   'bottom-[-96px]',
   'pb-40',
-  'hidden md:block text-2xl md:text-4xl',
 ];
 
 const forbiddenAppText = [
@@ -61,6 +60,8 @@ const forbiddenAppText = [
   '2023.06 - 2025.XX',
   '2018.09 - 2020.10',
   '中港通国际现代服务业产业园',
+  '产业园多主体',
+  '>\n            王艳梅\n',
   'window.setInterval',
   'target.scrollBy',
 ];
