@@ -47,6 +47,9 @@ const requiredAppText = [
   'deltaY < -42',
   'absolute left-[11px] top-0 bottom-0 w-1',
   'flex flex-col gap-3 pl-8 pb-24',
+  'desktopDetailHasMore',
+  'updateDesktopDetailFade',
+  'black_82%,transparent_100%',
 ];
 
 const forbiddenAppText = [

@@ -450,6 +450,7 @@ const ExperienceSection = () => {
   const [activeExperience, setActiveExperience] = useState<number | null>(null);
   const mobileExperienceDetailRef = useAutoScrollOverflow(activeExperience, 24);
   const [isMobileExperienceScrolled, setIsMobileExperienceScrolled] = useState(false);
+  const [desktopDetailHasMore, setDesktopDetailHasMore] = useState<Record<number, boolean>>({});
   const [isExperienceInView, setIsExperienceInView] = useState(false);
 
   const experiences = [
@@ -557,6 +558,13 @@ const ExperienceSection = () => {
       mobileExperienceReadyForNextRef.current = false;
     }
     setIsMobileExperienceScrolled((current) => (current === scrolled ? current : scrolled));
+  };
+
+  const updateDesktopDetailFade = (index: number, target: HTMLDivElement) => {
+    const hasMore = target.scrollHeight - target.clientHeight - target.scrollTop > 8;
+    setDesktopDetailHasMore((current) =>
+      current[index] === hasMore ? current : { ...current, [index]: hasMore }
+    );
   };
 
   const handleMobileExperienceTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
@@ -759,7 +767,17 @@ const ExperienceSection = () => {
                 </div>
 
                 <div className="flex-1 md:w-[65%] lg:w-[70%] overflow-hidden md:border-l md:border-zinc-800 md:pl-8 lg:pl-16 relative z-10 pr-2 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)] [WebkitMaskImage:linear-gradient(to_bottom,black_75%,transparent_100%)] md:[mask-image:none] md:[WebkitMaskImage:none]">
-                  <div className="h-full overflow-y-auto hide-scrollbar pb-16 md:pb-0">
+                  <div
+                    ref={(node) => {
+                      if (node) window.requestAnimationFrame(() => updateDesktopDetailFade(i, node));
+                    }}
+                    onScroll={(e) => updateDesktopDetailFade(i, e.currentTarget)}
+                    className={`h-full overflow-y-auto hide-scrollbar pb-16 md:pb-0 ${
+                      desktopDetailHasMore[i]
+                        ? "md:[mask-image:linear-gradient(to_bottom,black_0%,black_82%,transparent_100%)] md:[WebkitMaskImage:linear-gradient(to_bottom,black_0%,black_82%,transparent_100%)]"
+                        : ""
+                    }`}
+                  >
                     <ul className="space-y-4 md:space-y-6 lg:space-y-8 text-zinc-300">
                       {exp.details.map((detail) => (
                         <li key={detail} className="flex items-start">
