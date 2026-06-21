@@ -105,16 +105,14 @@ const useAutoScrollOverflow = (activeKey: unknown, pixelsPerSecond = 8) => {
     const target = ref.current;
     if (!target) return;
     let frameId: number | null = null;
-    let resetTimer: number | null = null;
     let lastFrameTime: number | null = null;
-    let scrollPosition = 0;
+    let scrollTopAccumulator = 0;
     let cancelled = false;
 
-    target.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+    target.scrollTop = 0;
 
     const stopAutoScroll = () => {
       cancelled = true;
-      if (resetTimer !== null) window.clearTimeout(resetTimer);
       if (frameId !== null) window.cancelAnimationFrame(frameId);
     };
 
@@ -132,17 +130,12 @@ const useAutoScrollOverflow = (activeKey: unknown, pixelsPerSecond = 8) => {
       lastFrameTime = timestamp;
 
       if (target.scrollTop >= maxScroll - 1) {
-        resetTimer = window.setTimeout(() => {
-          scrollPosition = 0;
-          target.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
-          lastFrameTime = null;
-          frameId = window.requestAnimationFrame(tick);
-        }, 1200);
         return;
       }
 
-      scrollPosition = Math.min(maxScroll, scrollPosition + (elapsed / 1000) * pixelsPerSecond);
-      target.scrollTop = scrollPosition;
+      const scrollStep = (elapsed / 1000) * pixelsPerSecond;
+      scrollTopAccumulator = Math.min(maxScroll, scrollTopAccumulator + scrollStep);
+      target.scrollTop = scrollTopAccumulator;
       frameId = window.requestAnimationFrame(tick);
     };
 
@@ -155,7 +148,6 @@ const useAutoScrollOverflow = (activeKey: unknown, pixelsPerSecond = 8) => {
       target.removeEventListener("touchstart", stopAutoScroll);
       target.removeEventListener("wheel", stopAutoScroll);
       window.clearTimeout(startTimer);
-      if (resetTimer !== null) window.clearTimeout(resetTimer);
       if (frameId !== null) window.cancelAnimationFrame(frameId);
     };
   }, [activeKey, pixelsPerSecond]);
@@ -396,7 +388,7 @@ const AboutSection = () => {
                 className="space-y-4 h-full overflow-y-auto hide-scrollbar pb-10 md:pb-0"
               >
                 {[
-                  "小型财务部统筹能力：具备两人财务部协同场景下的财务统筹经验，能围绕会计核算、出纳收付款、税务申报、费用预算、合同付款审核及档案管理建立分工复核和节点跟进机制。",
+                  "小型财务部统筹能力：具备3人财务部协同场景下的财务统筹经验，能围绕会计核算、出纳收付款、税务申报、费用预算、合同付款审核及档案管理建立分工复核和节点跟进机制，支撑17家公司财务事项按期闭环。",
                   "税务合规与风险处理能力：熟悉小规模、一般纳税人、合伙企业等不同主体申报口径，覆盖个税、增值税及附加、企业所得税、工商年报、税务年报，并能跟进经营异常、地址异常、税务变更等合规事项。",
                   "工具与汇报提效能力：熟悉金蝶 KIS、金蝶系统、用友 ERP，熟练使用 Excel / WPS 及 SUM、SUMIF、SUBTOTAL、VLOOKUP、XLOOKUP 等函数，能结合轻量 AI 工作流优化合同审核和月度财务汇报。",
                 ].map((text, i) => (
@@ -448,7 +440,7 @@ const ExperienceSection = () => {
   const mobileExperienceReadyAtTouchStartRef = useRef(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activeExperience, setActiveExperience] = useState<number | null>(null);
-  const mobileExperienceDetailRef = useAutoScrollOverflow(activeExperience, 24);
+  const mobileExperienceDetailRef = useAutoScrollOverflow(activeExperience, 36);
   const [isMobileExperienceScrolled, setIsMobileExperienceScrolled] = useState(false);
   const [desktopDetailHasMore, setDesktopDetailHasMore] = useState<Record<number, boolean>>({});
   const [isExperienceInView, setIsExperienceInView] = useState(false);
@@ -460,14 +452,15 @@ const ExperienceSection = () => {
       role: "财务主管",
       tags: ["17家公司", "财务统筹", "合同付款审核", "AI汇报工作流"],
       details: [
-        "负责多主体财务统筹工作，作为财务部核心会计人员，协同出纳完成日常收付款、费用审核、账务核算、税务申报、资金计划、预算跟进、合同付款审核及月度财务汇报。",
-        "统筹两人财务部日常事项，明确会计核算、出纳付款、银行流水、扣款跟进、资料归档及付款复核边界，建立月度财务节点表和事项跟进台账。",
+        "负责多主体财务统筹工作，作为财务部核心会计人员，协同出纳以及助理完成日常收付款、费用审核、账务核算、税务申报、资金计划、预算跟进、合同付款审核及月度财务汇报；通过会计与出纳分工复核、付款审批材料检查、月度申报节点管理和台账化跟进，保障多家公司财务事项按期闭环。",
+        "统筹财务部1名出纳以及1名财务助理的日常事项，明确会计核算、出纳付款、银行流水、扣款跟进、资料归档及付款复核边界，建立月度财务节点表和事项跟进台账。",
         "负责17家公司费用审核、工资核算、社保公积金扣款跟进、金蝶凭证录入及财务报表编制，并完成个税、经营所得、增值税及附加、企业所得税、工商年报、税务年报等申报事项。",
         "每日核对各公司收支明细并汇报资金情况，结合紧急付款协助规划资金；每月对接各部门费用数据，编制下月预算表，同步登记借款、押金、备用金及项目数据。",
-        "参与财务付款流程与业务合同审核流程优化，梳理付款申请、审批材料、费用归集、预算匹配、出纳付款执行、合同金额、付款条件、发票税点、押金及违约条款等审核要点。",
-        "基于 AI 工作流搭建轻量合同审核辅助流程，将合同关键条款整理为标准检查清单，用于付款前要点核查与风险提示；审核结论结合合同原件、付款申请单及业务审批记录复核确认。",
-        "通过 AI汇报工作流，将每月收入、支出、往来款汇总表按层级归类、合并与汇总金额，生成 Markdown 结构化文档与思维导图框架，并设置各层级金额合计校验提示。",
+        "参与财务付款流程与业务合同审核流程优化，梳理付款申请、审批材料、费用归集、预算匹配、出纳付款执行、合同金额、付款条件、发票税点、押金及违约条款等审核要点，规范业务付款审核口径。",
+        "基于 AI 工作流搭建轻量合同审核辅助流程，将合同关键条款整理为标准检查清单，用于付款前要点核查与风险提示；审核结论由本人结合合同原件、付款申请单及业务审批记录复核确认。",
+        "将每月收入、支出、往来款汇总表导入 AI 工作流，按“汇总—一级—二级—三级—四级”层级归类、合并与汇总金额，生成 Markdown 结构化文档与思维导图框架，并设置各层级金额合计校验提示。",
         "整理入账原始凭证，装订凭证、科目余额表、总账、明细账、纳税申报表等资料；跟进经营异常、地址异常问题，并完成第五次全国经济普查中15家公司信息及财务数据填报。",
+        "支撑17家公司账务、税务、资金、预算及档案管理，沉淀付款审核口径、合同审核清单、月度汇报思维导图和收支往来台账，提升多主体事项跟进与内部汇报效率。",
       ],
     },
     {
